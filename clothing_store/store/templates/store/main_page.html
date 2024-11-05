@@ -1,0 +1,40 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}Welcome to Clothing Store{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'store/css/main_page.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <h1 class="hero-section-title">Discover Your Style</h1>
+        <p class="hero-section-text">Explore our exclusive collection of fashion essentials and find your unique look.</p>
+        <a href="{% url "shop-page" %}" class="btn hero-section-button">Shop Now</a>
+    </div>
+</div>
+
+<div class="featured-products">
+    <div class="container">
+        <h2>Featured Products</h2>
+        <div class="products-grid">
+            {% for product in products %}
+            {% with product.images.first as main_image %}
+            <div class="product-item">
+                <img src="{{ main_image.image.url }}" alt="{{ product.name }}">
+                <h3>{{ product.name }}</h3>
+                <p>${{ product.price }}</p>
+                <a href="{% url "product-page" product.slug %}" class="btn">View Details</a>
+            </div>
+            {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'store/js/main_page.js' %}"></script>
+{% endblock js %}

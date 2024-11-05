@@ -5,12 +5,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock title %}</title>
-    <link rel="stylesheet" href="{% static "style.css" %}">
+    <title>{% block title %}Clothing Store{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     {% block css %}{% endblock css %}
 </head>
 <body>
+    <header>
+        <div class="navbar">
+            <a href="/" class="logo">ClothingStore</a>
+            <nav>
+                <ul>
+                    <li><a href="{% url "main-page" %}">Home</a></li>
+                    <li><a href="{% url "shop-page" %}">Shop</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="/contact/">Profile</a></li>
+                    {% else %}
+                        <li><a href="/contact/">Login in</a></li>
+                    {% endif %}
+                    <li><a href="/contact/">Cart</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     {% block content %}{% endblock content %}
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 ClothingStore. All Rights Reserved.</p>
+            <ul class="social-links">
+                <li><a href="https://t.me/triperp">Telegram</a></li>
+                <li><a href="https://github.com/KarasunoAs9">GitHub</a></li>
+                <li><a href="https://www.instagram.com/lil.trip4ik/">Instagram</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 {% block js %}{% endblock js %}
 </html>

@@ -1,0 +1,55 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}Shop{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'store/css/shop_page.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="shop-page">
+    <div class="container">
+        <div class="shop-layout">
+            <!-- Блок категорий -->
+            <aside class="categories-sidebar">
+                <h2>Categories</h2>
+                <ul class="category-list">
+                    <li><a href="{% url "shop-page" %}">All</a></li>
+                    {% for category in categorys %}
+                        <li>
+                            <a href="{% url "category-page" category.slug_name %}">
+                                {{ category.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </aside>
+
+            <!-- Блок товаров -->
+            <section class="products-section">
+                <h2>All Products</h2>
+                <div class="products-grid">
+                    {% for product in products %}
+                    {% with product.images.first as main_image %}
+                        <div class="product-item">
+                            <a href="{% url "product-page" product.slug %}">
+                                <img src="{{ main_image.image.url }}" alt="{{ product.name }}">
+                                <h3>{{ product.name }}</h3>
+                                <p class="product-price">${{ product.price }}</p>
+                            </a>
+                        </div>
+                        {% endwith %}
+                    {% empty %}
+                        <p>No products available in this category.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'store/js/shop_page.js' %}"></script>
+{% endblock js %}

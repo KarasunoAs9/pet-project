@@ -9,15 +9,13 @@ class ProductCategory(models.Model):
     ]
     
     name = models.CharField(max_length=50)
-    sex = models.CharField(max_length=6, choices=SEX_CHOICES)
+    sex = models.JSONField(default=list)
     
     slug_name =  models.SlugField(null=True, blank=True)
-    slug_sex = models.SlugField(null=True, blank=True)
     
     def save(self, *args, **kwargs):
-        if not self.slug_name and not self.slug_sex:
+        if not self.slug_name:
             self.slug_name = slugify(self.name)
-            self.slug_sex = slugify(self.sex)
         super().save(*args, **kwargs)
         
     def __str__(self):
@@ -27,6 +25,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.PositiveIntegerField()
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+    addet_to = models.DateTimeField(auto_now_add=True, null=True)
     
     slug = models.SlugField(null=True, blank=True)
     
@@ -54,6 +53,10 @@ class ProductSize(models.Model):
     
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="sizes")
     size = models.CharField(max_length=2, choices=SIZE_CHOICES)
+    quantity = models.PositiveIntegerField(default=0)
+    
+    def in_stock(self):
+        return self.quantity > 0
     
     def __str__(self):
         return self.size

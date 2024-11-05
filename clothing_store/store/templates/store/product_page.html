@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}Product Detail{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'store/css/product_page.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="product-detail">
+    <div class="container">
+        <div class="product-detail-wrapper">
+            {% with product.images.first as main_image %}
+            <div class="product-image">
+                <img src="{{ main_image.image.url }}" alt="{{ product.name }}">
+            </div>
+            {% endwith %}
+
+            <!-- Информация о продукте -->
+            <div class="product-info">
+                <h1>{{ product.name }}</h1>
+                <p class="product-price">${{ product.price }}</p>
+                <p class="product-description"></p>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <p>Size: </p>
+                    <div class="size-options">
+                        {% for size in product.sizes.all %}
+                            <button 
+                                type="submit"
+                                name="size"
+                                value="{{ size }}"
+                                class="size-option {% if not size.in_stock %}unavailable{% endif %}"
+                                {% if not size.in_stock %}disabled{% endif %}
+                            >
+                                {{ size }}
+                            </button>
+                        {% endfor %}
+                    </div>
+
+                    <button type="submit" class="btn add-to-cart">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'store/js/product_detail.js' %}"></script>
+{% endblock js %}
