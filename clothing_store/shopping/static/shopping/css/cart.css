@@ -1,0 +1,131 @@
+/* Cart Page Styles */
+
+.cart-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-container h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-item-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+}
+
+.cart-item-details h2 {
+    font-size: 1.25rem;
+    margin: 0;
+    color: #333;
+}
+
+.cart-item-details p {
+    margin: 0.5rem 0;
+    color: #666;
+}
+
+.cart-item-details form {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+.cart-item-details input[type="number"] {
+    width: 50px;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.cart-item-details button {
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-item-details button:hover {
+    background-color: #ff6b6b;
+}
+
+.remove-btn {
+    background-color: #ff4d4d;
+}
+
+.remove-btn:hover {
+    background-color: #ff1a1a;
+}
+
+.cart-total {
+    text-align: right;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.cart-total h2 {
+    margin-bottom: 1rem;
+}
+
+.cart-total .btn {
+    background-color: #333;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.cart-total .btn:hover {
+    background-color: #ff6b6b;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cart-item-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .cart-total {
+        text-align: center;
+    }
+}

@@ -1,0 +1,87 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block title %}Shopping Cart{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'shopping/css/cart.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="cart-container">
+    <h1>Your Shopping Cart</h1>
+    <div class="cart-items">
+        {% if products|length > 0 %}
+            {% for item in cart_items %}
+            {% with item.product.images.first as main_image %}
+                <div class="cart-item">
+                    <img src="{{ main_image.image.url }}" alt="{{ item.product.name }}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <h2>{{ item.product.name }}</h2>
+                        <p>Size:{{ item.size.name }}</p>
+                        <p>Price: ${{ item.product.price }}</p>
+                        <p>Quantity: 
+                            <input type="hidden" name="cart_id" value="{{ item.id }}">
+                            <select name="quantity" onchange="this.form.submit()">
+                                {% for i in item.quantity_range %}
+                                    <option value="{{ i }}" {% if i == item.quantity %}selected{% endif %}>{{ i }}</option>
+                                {% endfor %}
+                            </select></p>
+                        <form action="{% url "delete-product" %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="cart_id" value="{{ item.id }}">
+                            <button type="submit" class="remove-btn">Remove</button>
+                        </form>
+                    </div>
+                </div>
+                {% endwith %}
+            {% endfor %}
+        {% else %}
+            <p>Your cart is empty.</p>
+        {% endif %}
+    </div>
+    <div class="cart-total">
+        <h2>Total: ${{ total_sum }}</h2>
+        <a href="" class="btn">Proceed to Checkout</a>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    // Определяем URL для обновления корзины
+    const updateCartUrl = "{% url 'update-cart' %}";
+
+    document.querySelectorAll('select[name="quantity"]').forEach(select => {
+        select.addEventListener('change', function() {
+            const cartId = this.closest('.cart-item').querySelector('input[name="cart_id"]').value;
+            const quantity = this.value;
+
+            fetch(updateCartUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ cart_id: cartId, quantity: quantity })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Server response:", data); // Отладочный вывод ответа сервера
+                if (data.success) {
+                    console.log("Updating total sum:", data.total_sum); // Подтверждение успешного обновления
+                    document.querySelector('.cart-total h2').innerText = `Total: $${data.total_sum}`;
+                } else {
+                    alert(data.error || "Error updating cart.");
+                }
+            })
+            .catch(error => {
+                console.error("Fetch error:", error); // Вывод ошибок fetch
+                alert("An unexpected error occurred.");
+            });
+        });
+    });
+</script>
+{% endblock js %}
+

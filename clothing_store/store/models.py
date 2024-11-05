@@ -52,12 +52,12 @@ class ProductSize(models.Model):
     ]
     
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="sizes")
-    size = models.CharField(max_length=2, choices=SIZE_CHOICES)
+    name = models.CharField(max_length=2, choices=SIZE_CHOICES)
     quantity = models.PositiveIntegerField(default=0)
     
     def in_stock(self):
         return self.quantity > 0
     
     def __str__(self):
-        return self.size
+        return self.name
     

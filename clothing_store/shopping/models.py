@@ -9,3 +9,6 @@ class Cart(models.Model):
     size = models.ForeignKey(ProductSize, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(validators=[MaxValueValidator(10)], default=1)
     added_to = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.product.name} - {self.size.name } for {self.user}"

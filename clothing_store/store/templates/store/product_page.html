@@ -22,23 +22,24 @@
                 <h1>{{ product.name }}</h1>
                 <p class="product-price">${{ product.price }}</p>
                 <p class="product-description"></p>
-                <form method="post" action="">
-                    {% csrf_token %}
                     <p>Size: </p>
                     <div class="size-options">
+                        <form action="{% url "add-to-cart" %}" method="POST">
+                            {% csrf_token %}
                         {% for size in product.sizes.all %}
-                            <button 
-                                type="submit"
-                                name="size"
-                                value="{{ size }}"
-                                class="size-option {% if not size.in_stock %}unavailable{% endif %}"
+                        <label class="size-option {% if not size.in_stock %}unavailable{% endif %}">
+                            <input 
+                                type="radio" 
+                                name="size_id" 
+                                value="{{ size.id }}" 
                                 {% if not size.in_stock %}disabled{% endif %}
+                                required
                             >
-                                {{ size }}
-                            </button>
+                            {{ size.name }}
+                        </label>
                         {% endfor %}
                     </div>
-
+                        <input type="hidden" name = "product_id" value="{{ product.id }}">
                     <button type="submit" class="btn add-to-cart">Add to Cart</button>
                 </form>
             </div>
