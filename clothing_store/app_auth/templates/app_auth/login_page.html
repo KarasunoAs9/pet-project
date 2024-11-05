@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'app_auth/login_page.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="login-container">
+    <h2>Are you a user?</h2>
+    <form action="{% url 'login-page' %}" method="POST" class="login-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="login-btn">Login</button>
+    </form>
+    <p class="register-link">Don't have an account? <a href="{% url 'register-page' %}">Sign up</a></p>
+</div>
+{% endblock content %}

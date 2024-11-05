@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}Register{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'app_auth/register_page.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="register-container">
+    <h2>Is this your first visit?</h2>
+    <form action="{% url 'register-page' %}" method="POST" class="register-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="register-btn">Register</button>
+        <p class="login-link">Already have an account? <a href="{% url 'login-page' %}">Log in</a></p>
+    </form>
+</div>
+{% endblock content %}
+
+{% block js %}{% endblock js %}

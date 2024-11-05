@@ -1,0 +1,117 @@
+/* Основные стили для формы регистрации */
+.register-container {
+    width: 90%;
+    max-width: 350px; /* Уменьшаем ширину контейнера */
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    margin: 2rem auto; /* Центрируем и добавляем отступы сверху и снизу */
+}
+
+.register-container h2 {
+    font-size: 1.5rem; /* Уменьшаем размер заголовка */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; /* Уменьшаем расстояние между полями */
+}
+
+.register-form label {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Стили для полей ввода */
+.register-form input[type="text"],
+.register-form input[type="email"],
+.register-form input[type="password"] {
+    width: 100%;
+    padding: 0.6rem;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: transparent;
+    font-size: 0.9rem;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.register-form input[type="text"]:focus,
+.register-form input[type="email"]:focus,
+.register-form input[type="password"]:focus {
+    border-bottom: 1px solid #333;
+    outline: none;
+}
+
+/* Стили для размещения полей "Имя" и "Фамилия" на одной строке */
+.name-fields {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.name-fields input[type="text"] {
+    flex: 1; /* Делаем поля равной ширины */
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.checkbox-group a {
+    color: #0073e6;
+    text-decoration: underline;
+}
+
+.checkbox-group a:hover {
+    color: #005bb5;
+}
+
+/* Стили для кнопки регистрации */
+.register-btn {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #000;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+}
+
+.register-btn:hover {
+    background-color: #333;
+}
+
+.login-link {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #333;
+}
+
+.login-link a {
+    color: #0073e6;
+    text-decoration: underline;
+}
+
+.login-link a:hover {
+    color: #005bb5;
+}
