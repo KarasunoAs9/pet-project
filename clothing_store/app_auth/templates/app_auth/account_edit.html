@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}Edit Profile{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'app_auth/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'app_auth/edit.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="profile-container">
+    {% include "app_auth/includes/sidebar.html" %}
+
+    <div class="edit-profile-container">
+        <h2>Edit info</h2>
+        <form action="{% url 'account-edit' %}" method="POST" class="edit-form">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            <div class="form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                {{ form.last_name.label_tag }}
+                {{ form.last_name }}
+            </div>
+            <button type="submit" class="login-btn">Edit</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

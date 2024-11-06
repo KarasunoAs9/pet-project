@@ -9,7 +9,7 @@ import json
 # Create your views here.
 class CartView(ListView):
     model = Cart
-    template_name = "shopping/cart_page.html"
+    template_name = "shopping/cart.html"
     context_object_name = "products"
     
     def get_context_data(self, **kwargs):

@@ -12,3 +12,7 @@ class Cart(models.Model):
     
     def __str__(self):
         return f"{self.product.name} - {self.size.name } for {self.user}"
+    
+    
+class Orders(models.Model):
+    pass

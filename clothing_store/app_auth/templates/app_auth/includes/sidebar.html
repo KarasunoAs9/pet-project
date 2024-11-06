@@ -1,0 +1,16 @@
+{% load static %}
+<aside class="sidebar">
+    <h2>My Profile</h2>
+    <ul>
+        <li><a href="">My Orders</a></li>
+        <li><a href="">My Returns</a></li>
+        <li><a href="{% url "account-edit" %}">Account Details</a></li>
+        <li><a href="">Shipping Addresses</a></li>
+        <li><a href="">Billing Address</a></li>
+        <li><form action="{% url "logout" %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" >Logout</button>
+    </form>
+</li>
+    </ul>
+</aside>
