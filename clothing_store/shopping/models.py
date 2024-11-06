@@ -2,6 +2,7 @@ from django.db import models
 from app_auth.models import Customer
 from store.models import Product, ProductSize
 from django.core.validators import MaxValueValidator
+import random
 
 class Cart(models.Model):
     user = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -15,4 +16,35 @@ class Cart(models.Model):
     
     
 class Orders(models.Model):
-    pass
+    STATUS_CHOICES = [
+        ("In progres", "In progres"),
+        ("Delivery", "Delivery"),
+        ("Completed", "Completed")
+    ]
+    
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+    number = models.PositiveBigIntegerField(unique=True)
+    status = models.CharField(max_length=11, choices=STATUS_CHOICES)
+    cart = models.ManyToManyField(Cart, related_name="cart")
+    added_to = models.DateTimeField(auto_now_add=True)
+    
+    
+    def save(self, *args, **kwargs):
+        if not self.number:
+            random.randint(10000, 99999)
+        
+        while Orders.objects.filter(number=self.number).exists():
+            self.number = random.randint(10000, 99999)        
+        
+        super().save(*args, **kwargs)
+
+class Payment(models.Model):
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    cart_number = models.CharField(max_length=19)
+    expiration_term = models.CharField(max_length=5)
+    cvv = models.PositiveIntegerField()
+    
+    
+    
+    
+    
