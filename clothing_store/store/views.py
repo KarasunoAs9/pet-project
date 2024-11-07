@@ -29,6 +29,13 @@ class ProductPage(DetailView):
         product = models.Product.objects.get(slug=slug)
         similar_products = models.Product.objects.filter(category=product.category).exclude(id=product.id)
         context["similar_products"] = similar_products
+        if len(product.reviews.all()) > 0:
+            rating = sum([i.rating for i in product.reviews.all()]) // len(product.reviews.all())
+        else:
+            rating = 0
+        context["rating_num"] = rating
+        context["rating"] = range(1, 6)
+
         return context
     
     

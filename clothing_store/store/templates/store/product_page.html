@@ -4,7 +4,8 @@
 {% block title %}Product Detail{% endblock title %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'store/css/product_page.css' %}">
+    <link rel="stylesheet" href="{% static 'store/css/product_page.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock css %}
 
 {% block content %}
@@ -22,7 +23,16 @@
                 <h1>{{ product.name }}</h1>
                 <p class="product-price">${{ product.price }}</p>
                 <p class="product-description"></p>
-                <p><a>Ratings</a></p>
+                <div class="product-rating">
+                    {% for star in rating %}
+                        {% if star < rating_num %}
+                            <span class="star"><i class="fas fa-star"></i></span>
+                        {% else %}
+                            <span class="star"><i class="far fa-star"></i></span>
+                        {% endif %}
+                    {% endfor %}
+                    <a href="{% url "reviews-page" product.slug %}" >{{ product.reviews.all|length }} Ratings</a>
+                </div>
                     <p>Size: </p>
                     <div class="size-options">
                         <form action="{% url "add-to-cart" %}" method="POST">

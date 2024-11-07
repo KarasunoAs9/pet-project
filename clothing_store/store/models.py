@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+import uuid
 
 class ProductCategory(models.Model):
     SEX_CHOICES = [
@@ -32,6 +33,8 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
+            unique_suffix = str(uuid.uuid4())[:8]
+            self.slug = f"{self.slug}-{unique_suffix}"
         super().save(*args, **kwargs)
     
     def __str__(self):

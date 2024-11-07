@@ -1,11 +1,50 @@
 {% extends "index.html" %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}Reviews{% endblock title %}
+
 {% block css %}
     <link rel="stylesheet" href="{% static 'reviews/reviews.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock css %}
 
-{% block content %}{% endblock content %}
+{% block content %}
+    <div class="reviews-container">
+        <h2>Product Reviews</h2>
+        <button class="add-review-btn">Add Review</button>
 
-{% block js %}{% endblock js %}
+        <div id="review-form-container" class="hidden">
+            <form id="review-form" action="{% url "reviews-page" product.slug %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn">Submit Review</button>
+            </form>
+        </div>
+        {% for review in reviews %}
+        <div class="review">
+            <div class="product-rating">
+                {% for star in rating %}
+                    {% if star <= review.rating|to_int  %}
+                        <span class="star"><i class="fas fa-star"></i></span>
+                    {% else %}
+                        <span class="star"><i class="far fa-star"></i></span>
+                    {% endif %}
+                {% endfor %}  
+            </div>
+            <h3 class="review-author">{{ review.user.name }} {{ review.user.last_name }}</h3>
+            <p class="review-date">{{ review.addet_to|date:"F j, Y" }}</p>
+            <p class="review-text">{{ review.comment }}</p>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
+
+{% block js %}
+    <script>
+        document.querySelector('.add-review-btn').addEventListener('click', function() {
+            const formContainer = document.getElementById('review-form-container');
+            formContainer.classList.toggle('hidden');
+        });
+    </script>
+{% endblock js %}
