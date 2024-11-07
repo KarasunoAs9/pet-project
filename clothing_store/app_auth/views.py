@@ -4,6 +4,8 @@ from .forms import CustomerRegistrationForm, UserLoginForm, EditCustomerForm
 from django.contrib.auth import login, authenticate
 from .models import Customer
 from django.contrib.auth.models import User
+from shopping.models import Orders, Cart, OrderItem
+
 
 class LoginCustomer(View):
     def get(self, request):
@@ -49,9 +51,20 @@ class RegisterCustomer(View):
         return render(request, "app_auth/register.html", {"form": form})
     
 
+
 class ProfilePage(View):
     def get(self, request):
-        return render(request, "app_auth/profile.html")
+        customer = Customer.objects.get(user=self.request.user)
+        orders = Orders.objects.filter(user=customer)
+        orders_item = []
+        for order in orders:
+            order_item = OrderItem.objects.filter(order=order)
+            orders_item.append(order_item)
+        
+        return render(request, "app_auth/profile.html", 
+                      {"orders": orders,
+                       "orders_item": orders_item,
+                       })
     
 class AccountEdit(View):
     def get(self, request):

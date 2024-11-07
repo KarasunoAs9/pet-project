@@ -42,8 +42,28 @@
         {% endif %}
     </div>
     <div class="cart-total">
+    <form id="paymentForm" action="{% url "order" %}" method="POST">
+        {% csrf_token %}
+        <input name="cart_items" type="hidden" value="{% for i in cart_items %}  {{ i.id }} {% endfor %}">
         <h2>Total: ${{ total_sum }}</h2>
-        <a href="" class="btn">Proceed to Checkout</a>
+        <input name="total_sum" id="total_sum" type="hidden" value={{ total_sum }}>
+        {% if products|length > 0 %}
+        <button type="submit" class="btn">Proceed to Checkout</button>
+        {% endif %}
+        <!-- Модальное окно -->
+    <div id="paymentModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Payment Form</h2>
+                {{ form.as_p }}
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="save_payment" name="save_payment">
+                    <label for="save_payment">Do you want to save payment data?</label>
+                </div>
+                <button type="submit" id="confirmPayment" class="btn-primary">Confirm Payment</button>             
+    </div>
+</div>
+    </form>
     </div>
 </div>
 {% endblock content %}
@@ -72,6 +92,7 @@
                 if (data.success) {
                     console.log("Updating total sum:", data.total_sum); // Подтверждение успешного обновления
                     document.querySelector('.cart-total h2').innerText = `Total: $${data.total_sum}`;
+                    document.querySelector('#total_sum').value = data.total_sum;
                 } else {
                     alert(data.error || "Error updating cart.");
                 }
@@ -80,6 +101,43 @@
                 console.error("Fetch error:", error); // Вывод ошибок fetch
                 alert("An unexpected error occurred.");
             });
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const paymentModal = document.getElementById("paymentModal");
+        const proceedButton = document.querySelector('.btn');
+        const closeModal = document.querySelector('.close');
+        const confirmPaymentButton = document.getElementById("confirmPayment");
+        const paymentForm = document.getElementById("paymentForm");
+    
+        // Открыть модальное окно
+        proceedButton.addEventListener("click", function (event) {
+            event.preventDefault(); // Останавливаем стандартное поведение формы
+            paymentModal.style.display = "flex";
+        });
+    
+        // Закрыть модальное окно
+        closeModal.addEventListener("click", function () {
+            paymentModal.style.display = "none";
+        });
+    
+        // Обработка подтверждения оплаты
+        confirmPaymentButton.addEventListener("click", function () {
+            // Проверяем, заполнена ли форма оплаты
+            if (paymentForm.reportValidity()) {
+                // Отправка формы на сервер
+                document.querySelector('.cart-total form').submit();
+                const savePayment = document.getElementById("save_payment").checked;
+
+            }
+        });
+    
+        // Закрыть модальное окно при клике вне его
+        window.addEventListener("click", function (event) {
+            if (event.target === paymentModal) {
+                paymentModal.style.display = "none";
+            }
         });
     });
 </script>

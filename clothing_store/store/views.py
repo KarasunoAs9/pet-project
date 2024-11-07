@@ -15,6 +15,8 @@ class MainPage(ListView):
     model = models.Product
     template_name = "store/main_page.html"
     context_object_name = "products"
+    ordering = ["-addet_to"]
+    paginate_by = 3
 
 class ProductPage(DetailView):
     model = models.Product

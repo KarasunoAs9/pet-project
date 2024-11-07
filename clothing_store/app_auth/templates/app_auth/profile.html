@@ -16,32 +16,37 @@
         <!-- Если заказы есть, то отображаем блоки заказов -->
         <div class="orders-list">
             <!-- Пример блока заказа -->
+            {% for items in orders %}
             <div class="order-card">
-                <h3>Order #12345</h3>
-                <p>Date: 2024-11-05</p>
-                <p>Status: Delivered</p>
+                <h3>Order #{{ items.number }}</h3>
+                <p>Date: {{ items.added_to|date:"F j, Y, g:i a" }}</p>
+                <p>Status: {{ items.status }}</p>
                 <div class="order-items">
-                    <div class="order-item">
-                        <img src="{% static 'images/product-image.jpg' %}" alt="Product Image">
-                        <div class="item-details">
-                            <p>Product Name</p>
-                            <p>Quantity: 2</p>
-                            <p>Price: $50</p>
-                        </div>
-                    </div>
-                    <div class="order-item">
-                        <img src="{% static 'images/product-image.jpg' %}" alt="Product Image">
-                        <div class="item-details">
-                            <p>Product Name</p>
-                            <p>Quantity: 1</p>
-                            <p>Price: $25</p>
-                        </div>
+                    
+                        {% for order_item in orders_item %}
+                        {% for item in order_item %}
+                            {% if item.order == items %}
+                                {% with item.product.images.first as main_image %}
+                                    <div class="order-item">
+                                        <img src="{{ main_image.image.url }}" alt="{{ item.product.name }}">
+                                        <div class="item-details">
+                                            <p>{{ item.product.name }}</p>
+                                            <p>Size: {{ item.size }}</p>
+                                            <p>Quantity: {{ item.quantity }}</p>
+                                            <p>Price: ${{ item.product.price }}</p>
+                                        </div>
+                                    </div>
+                                    {% endwith %}
+                                {% endif %} 
+                                {% endfor %}     
+                        {% endfor %}
+                    <p>Total: ${{ items.total_sum }}</p> 
                     </div>
                 </div>
-                <p class="total-price">Total: $125</p>
+                    {% endfor %}
+                </div>
             </div>
             <!-- Конец блока заказа -->
-        </div>
 
 
        

@@ -1,6 +1,8 @@
 from django import forms
 from .models import Orders
 from datetime import datetime
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 class PaymentForm(forms.Form):
     cart_number = forms.CharField(
@@ -9,7 +11,9 @@ class PaymentForm(forms.Form):
         widget=forms.TextInput(attrs={"placeholder": "XXXX XXXX XXXX XXXX"})
         )
     expiration_term = forms.CharField(max_length=5, required=True, widget=forms.TextInput(attrs={"placeholder": "MM/YY"}))
-    cvv = forms.IntegerField(max_length=3, min_length=3, required=True)
+    cvv = forms.CharField(min_length=3, max_length=3, required=True, widget=forms.TextInput(
+        attrs={"placeholder": "000"}
+    ))
     
     def clean_expiration_term(self):
         data = self.cleaned_data["expiration_term"]
