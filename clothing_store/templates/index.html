@@ -28,6 +28,11 @@
                 </ul>
             </nav>
         </div>
+        <div class="search-bar">
+            <form action="{% url "shop-page" %}">
+            <input type="text" placeholder="Search for products..." class="search-input" name="search">
+            </form>
+        </div>        
     </header>
 
     {% block content %}{% endblock content %}

@@ -69,7 +69,11 @@ class ShopPage(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["products"] = models.Product.objects.all() 
+        search_query = self.request.GET.get("search", "")
+        if search_query:
+            context["products"] = models.Product.objects.filter(name__icontains=search_query)
+        else:    
+            context["products"] = models.Product.objects.all() 
         return context
 
 class CategoryPage(ListView):

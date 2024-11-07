@@ -25,7 +25,7 @@
                 <p class="product-description"></p>
                 <div class="product-rating">
                     {% for star in rating %}
-                        {% if star < rating_num %}
+                        {% if star <= rating_num %}
                             <span class="star"><i class="fas fa-star"></i></span>
                         {% else %}
                             <span class="star"><i class="far fa-star"></i></span>
