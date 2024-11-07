@@ -22,6 +22,7 @@
                 <h1>{{ product.name }}</h1>
                 <p class="product-price">${{ product.price }}</p>
                 <p class="product-description"></p>
+                <p><a>Ratings</a></p>
                     <p>Size: </p>
                     <div class="size-options">
                         <form action="{% url "add-to-cart" %}" method="POST">
@@ -40,12 +41,33 @@
                         {% endfor %}
                     </div>
                         <input type="hidden" name = "product_id" value="{{ product.id }}">
+                        {% if product.sizes.all|length != 0 %}
                     <button type="submit" class="btn add-to-cart">Add to Cart</button>
+                    {% endif %}
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Похожие продукты -->
+<div class="related-products">
+    <h2>Similar Products</h2>
+    <div class="related-products-wrapper">
+        {% for similar_product in similar_products %}
+        {% with similar_product.images.first as main_image %}
+        <div class="related-product-item">
+            <a href="{% url 'product-page' similar_product.slug %}">
+                <img src="{{ main_image.image.url }}" alt="Alo">
+                <p class="related-product-name">{{ similar_product.name }}</p>
+                <p class="related-product-price">${{ similar_product.price }}</p>
+            </a>
+        </div>
+        {% endwith %}
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock content %}
 
 {% block js %}

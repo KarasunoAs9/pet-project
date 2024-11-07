@@ -23,6 +23,15 @@ class ProductPage(DetailView):
     template_name = "store/product_page.html"
     context_object_name = "product"
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug  = self.kwargs.get("slug")
+        product = models.Product.objects.get(slug=slug)
+        similar_products = models.Product.objects.filter(category=product.category).exclude(id=product.id)
+        context["similar_products"] = similar_products
+        return context
+    
+    
 @method_decorator(login_required, name='dispatch')   
 class AddToCart(View):
     def post(self, request):
