@@ -38,8 +38,7 @@ class RegisterCustomer(View):
         form = CustomerRegistrationForm(request.POST)
         
         if form.is_valid():
-            user = User(username=form.cleaned_data["username"], email=form.cleaned_data["email"])
-            user.set_password(form.cleaned_data["password"])
+            user = User(username=form.cleaned_data["username"], email=form.cleaned_data["email"], password=form.cleaned_data["password"])
             user.save()
             
             customer = Customer(user=user, email=form.cleaned_data["email"], name=form.cleaned_data["name"], last_name=form.cleaned_data["last_name"])
@@ -55,7 +54,7 @@ class RegisterCustomer(View):
 class ProfilePage(View):
     def get(self, request):
         customer = Customer.objects.get(user=self.request.user)
-        orders = Orders.objects.filter(user=customer)
+        orders = Orders.objects.filter(user=customer).order_by("-added_to")
         orders_item = []
         for order in orders:
             order_item = OrderItem.objects.filter(order=order)

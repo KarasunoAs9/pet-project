@@ -1,6 +1,8 @@
 from django import forms
 from .models import Customer
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(max_length=128, required=True)
@@ -8,7 +10,7 @@ class UserLoginForm(forms.Form):
 
 class CustomerRegistrationForm(forms.ModelForm):
     username = forms.CharField(max_length=128, required=True)
-    password = forms.CharField(max_length=128,widget=forms.PasswordInput, required=True)
+    password = forms.CharField(max_length=128,widget=forms.PasswordInput, required=True, validators=[validate_password])
     email = forms.EmailField(max_length=128, required=True)
     name = forms.CharField(max_length=128, required=True)
     last_name = forms.CharField(max_length=128, required=True)
@@ -16,12 +18,20 @@ class CustomerRegistrationForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ["username", "password", "email", "name", "last_name"]
-        
+    
+    def cleaned_password(self):
+        password = self.cleaned_data.get("password")
+        try:
+            validate_password(password)
+        except ValidationError as e:
+            return forms.ValidationError(e.message)
+    
+     
     def save(self, commit=True):
         user = User(
             username = self.cleaned_data["username"],
-            password = self.cleaned_data["password"]
         )
+        user.set_password(self.cleaned_data["password"])
         
         customer = Customer(
             user=user,

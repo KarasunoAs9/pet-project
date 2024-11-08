@@ -6,6 +6,7 @@ from django.views import View
 from django.http import JsonResponse
 from .forms import PaymentForm
 import json
+from store.models import ProductSize
 
 # Create your views here.
 class CartView(ListView):
@@ -63,15 +64,23 @@ class CreateOrder(View):
         form = PaymentForm(request.POST)
         
         cart_items = request.POST.get("cart_items")
-        cart_id = list(map(int, cart_items.split()))
+        cart_id = list(map(int, cart_items.split(",")))
         cart_obj = Cart.objects.filter(id__in=cart_id)
         user = Customer.objects.get(user=self.request.user)
         total_sum = request.POST.get("total_sum")
-           
+        sizes = request.POST.get("sizes")
+        sizes_lst = sizes.split(",")
+        print(sizes_lst)
+        
         order = Orders.objects.create(user=user, total_sum=total_sum)
         order.created_order_item(cart_obj)
+        for num, cart in enumerate(cart_obj):
+            size = ProductSize.objects.get(product=cart.product, name=sizes_lst[num])
+            size.quantity -= cart.quantity
+            size.save()
         cart_obj.delete()
-             
+        
+            
         return redirect("profile")
 
         

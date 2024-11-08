@@ -87,4 +87,7 @@ class CategoryPage(ListView):
         context = super().get_context_data(**kwargs)
         context["products"] = models.Product.objects.filter(category=category_object)
         return context
-    
+
+class About(View):
+    def get(self, request):
+        return render(request, "store/about_page.html")

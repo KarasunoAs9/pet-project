@@ -12,7 +12,7 @@
 <div class="cart-container">
     <h1>Your Shopping Cart</h1>
     <div class="cart-items">
-        {% if products|length > 0 %}
+        {% if cart_items|length > 0 %}
             {% for item in cart_items %}
             {% with item.product.images.first as main_image %}
                 <div class="cart-item">
@@ -25,7 +25,7 @@
                             <input type="hidden" name="cart_id" value="{{ item.id }}">
                             <select name="quantity" onchange="this.form.submit()">
                                 {% for i in item.quantity_range %}
-                                    <option value="{{ i }}" {% if i == item.quantity %}selected{% endif %}>{{ i }}</option>
+                                    <option value="{{ i }}" {% if i == item.quantity %}selected{% endif %} name="opt_s">{{ i }}</option>
                                 {% endfor %}
                             </select></p>
                         <form action="{% url "delete-product" %}" method="POST">
@@ -44,10 +44,11 @@
     <div class="cart-total">
     <form id="paymentForm" action="{% url "order" %}" method="POST">
         {% csrf_token %}
-        <input name="cart_items" type="hidden" value="{% for i in cart_items %}  {{ i.id }} {% endfor %}">
+        <input name="sizes" type="hidden" value="{% for i in cart_items %}{{ i.size }}{% if not forloop.last %},{% endif %}{% endfor %}">
+        <input name="cart_items" type="hidden" value="{% for i in cart_items %}{{ i.id }}{% if not forloop.last %},{% endif %}{% endfor %}">
         <h2>Total: ${{ total_sum }}</h2>
         <input name="total_sum" id="total_sum" type="hidden" value={{ total_sum }}>
-        {% if products|length > 0 %}
+        {% if cart_items|length > 0 %}
         <button type="submit" class="btn">Proceed to Checkout</button>
         {% endif %}
         <!-- Модальное окно -->

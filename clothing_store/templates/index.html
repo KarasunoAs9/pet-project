@@ -17,14 +17,14 @@
                 <ul>
                     <li><a href="{% url "main-page" %}">Home</a></li>
                     <li><a href="{% url "shop-page" %}">Shop</a></li>
-                    <li><a href="/about/">About Us</a></li>
-                    <li><a href="/contact/">Contact</a></li>
+                    <li><a href="{% url "about" %}">About Us</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url "profile" %}">Profile</a></li>
+                        <li><a href="{% url "cart-page" %}">Cart</a></li>
                     {% else %}
                         <li><a href="{% url "login-page" %}">Login in</a></li>
-                    {% endif %}
-                    <li><a href="{% url "cart-page" %}">Cart</a></li>
+                        <li><a href="{% url "login-page" %}">Cart</a></li>
+                    {% endif %}                     
                 </ul>
             </nav>
         </div>
@@ -44,7 +44,7 @@
             <ul class="social-links">
                 <li><a href="https://t.me/triperp">Telegram</a></li>
                 <li><a href="https://github.com/KarasunoAs9">GitHub</a></li>
-                <li><a href="https://www.instagram.com/lil.trip4ik/">Instagram</a></li>
+                <li><a href="https://www.linkedin.com/in/andrey-demyan/?trk=opento_sprofile_topcard">Linked in</a></li>
             </ul>
         </div>
     </footer>
