@@ -7,7 +7,7 @@
 1. Клонируйте репозиторий:
 
     ```bash
-    git clone <URL вашего репозитория>
+    git clone https://github.com/KarasunoAs9/pet-project
     cd clothing_store
     ```
 
