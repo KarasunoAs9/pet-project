@@ -10,4 +10,4 @@ urlpatterns = [
     path("shop/<slug:slug>", views.CategoryPage.as_view(), name="category-page"),
     path("add-to-cart/", views.AddToCart.as_view(), name="add-to-cart"),
     path("about/", views.About.as_view(), name="about")
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

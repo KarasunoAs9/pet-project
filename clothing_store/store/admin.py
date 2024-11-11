@@ -15,8 +15,14 @@ class ProductCategoryForm(forms.ModelForm):
         
 class ProductCategoryAdmin(admin.ModelAdmin):
     form = ProductCategoryForm
+    
+class ProductSizeAdmin(admin.ModelAdmin):
+    list_filter = ("product",)
+    
+class ProductAdmin(admin.ModelAdmin):
+    list_filter = ("category",)
 
-admin.site.register(models.Product)
-admin.site.register(models.ProductSize)
+admin.site.register(models.Product, ProductAdmin)
+admin.site.register(models.ProductSize, ProductSizeAdmin)
 admin.site.register(models.ProductCategory, ProductCategoryAdmin)
 admin.site.register(models.ProductImages)

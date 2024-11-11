@@ -1,0 +1,96 @@
+/* General Styles for About Us Page */
+.about-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.hero-section {
+    background-color: #ff6b6b;
+    color: #fff;
+    padding: 4rem;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    line-height: 1.8;
+}
+
+.our-story {
+    margin-top: 4rem;
+    padding: 3rem;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.our-story h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.our-story p {
+    line-height: 1.8;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.our-values {
+    margin-top: 4rem;
+    padding: 3rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.our-values h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.values-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.value-item {
+    background-color: #f0f0f0;
+    padding: 2rem;
+    border-radius: 10px;
+    flex: 1;
+    min-width: 250px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.value-item:hover {
+    transform: translateY(-10px);
+}
+
+.value-item h3 {
+    color: #ff6b6b;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.value-item p {
+    line-height: 1.6;
+    color: #555;
+    font-size: 1.1rem;
+}
+
+
+
