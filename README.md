@@ -41,17 +41,8 @@
     psql -U postgres -d clothing-store < db_dump.sql
     ```
 
-    Если требуется пароль для PostgreSQL, перед командой установите переменную окружения:
+    Пароль для PostgreSQL: 1111
 
-    **Windows**:
-    ```bash
-    $env:PGPASSWORD="ваш_пароль"
-    ```
-
-    **Mac/Linux**:
-    ```bash
-    export PGPASSWORD="ваш_пароль"
-    ```
 
 5. Выполните миграции:
 
