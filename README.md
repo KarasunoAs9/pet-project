@@ -94,6 +94,6 @@ If you encounter any issues, check the following:
 1. Make sure PostgreSQL is installed and added to the system PATH.
 2. Verify the db_dump.sql file has been correctly imported.
 3. Ensure all dependencies are installed:
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+pip install -r requirements.txt
+```
