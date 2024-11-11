@@ -80,3 +80,20 @@ clothing_store/
 ├── db_dump.sql             # Database dump
 ├── requirements.txt        # Python dependencies
 └── README.md               # Project setup instructions
+```
+
+## 🛠️ Technologies Required
+1. Python 3.10+
+2. Django 5.1.2
+3. PostgreSQL 13+
+4. Git
+
+## 📋 Additional Notes
+If you encounter any issues, check the following:
+
+1. Make sure PostgreSQL is installed and added to the system PATH.
+2. Verify the db_dump.sql file has been correctly imported.
+3. Ensure all dependencies are installed:
+   ```bash
+   pip install -r requirements.txt
+   ```
