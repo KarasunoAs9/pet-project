@@ -1,17 +1,19 @@
-### ClothingStore
+# 🛍️ ClothingStore
 
-Интерактивное веб-приложение для интернет-магазина одежды, созданное с использованием Django и PostgreSQL.
+An interactive web application for an online clothing store, built with Django and PostgreSQL.
 
-## Как запустить проект локально
+---
 
-1. Клонируйте репозиторий:
+## 🚀 How to Run the Project Locally
+
+1. **Clone the repository**:
 
     ```bash
     git clone https://github.com/KarasunoAs9/pet-project
     cd clothing_store
     ```
 
-2. Создайте виртуальное окружение и установите зависимости:
+2. **Create a virtual environment and install dependencies**:
 
     **Windows**:
     ```bash
@@ -27,39 +29,54 @@
     pip install -r requirements.txt
     ```
 
-3. Создайте базу данных PostgreSQL:
+3. **Set up the PostgreSQL database**:
 
-    Убедитесь, что PostgreSQL установлен и запущен. Создайте базу данных с именем `clothing-store`:
+    Ensure PostgreSQL is installed and running. Create a database named `clothing-store`:
 
     ```bash
     createdb clothing-store
     ```
 
-4. Импортируйте данные в базу данных:
+4. **Import data into the database**:
+
+    Use the provided `db_dump.sql` file to populate the database:
 
     ```bash
     psql -U postgres -d clothing-store < db_dump.sql
     ```
 
-    Пароль для PostgreSQL: 1111
+    **PostgreSQL password**: `1111`
 
-
-5. Выполните миграции:
+5. **Apply migrations**:
 
     ```bash
     python manage.py migrate
     ```
 
-6. Соберите статические файлы:
-
-    ```bash
-    python manage.py collectstatic
-    ```
-
-7. Запустите сервер разработки:
+6. **Run the development server**:
 
     ```bash
     python manage.py runserver
     ```
 
-8. Откройте ваш браузер и перейдите по адресу [http://127.0.0.1:8000](http://127.0.0.1:8000).
+7. **Open the browser**:
+
+    Go to [http://127.0.0.1:8000](http://127.0.0.1:8000).
+
+---
+
+## 📂 Project Structure
+
+```csharp
+clothing_store/
+├── clothing_store/         # Project settings
+├── reviews/                # Reviews module
+├── shopping/               # Shopping module
+├── store/                  # Main store app
+├── app_auth/               # Authentication and registration
+├── static/                 # Static files
+├── media/                  # Media files (images, etc.)
+├── templates/              # HTML templates
+├── db_dump.sql             # Database dump
+├── requirements.txt        # Python dependencies
+└── README.md               # Project setup instructions
